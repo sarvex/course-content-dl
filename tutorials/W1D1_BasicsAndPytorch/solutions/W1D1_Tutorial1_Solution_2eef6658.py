@@ -1,4 +1,4 @@
-X_samples = X[0:5]
+X_samples = X[:5]
 print("Sample input:", X_samples)
 
 # Do a forward pass of the network

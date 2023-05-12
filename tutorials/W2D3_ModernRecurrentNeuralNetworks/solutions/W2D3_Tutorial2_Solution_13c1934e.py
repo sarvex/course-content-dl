@@ -30,9 +30,7 @@ class LSTM(nn.Module):
     h_n = hidden[0].permute(1, 0, 2)
     h_n = h_n.contiguous().view(h_n.shape[0], -1)
 
-    logits = self.fc(h_n)
-
-    return logits
+    return self.fc(h_n)
 
 
 sampleLSTM = LSTM(3, 10, 100, 1000, 300)

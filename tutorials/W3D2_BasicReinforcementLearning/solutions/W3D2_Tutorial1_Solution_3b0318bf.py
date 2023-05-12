@@ -6,9 +6,7 @@ class RandomAgent(acme.Actor):
 
   def select_action(self, observation):
     """Selects an action uniformly at random."""
-    # TODO return a random integer
-    action = np.random.randint(self._num_actions)
-    return action
+    return np.random.randint(self._num_actions)
 
   def observe_first(self, timestep):
     """Does not record as the RandomAgent has no use for data."""

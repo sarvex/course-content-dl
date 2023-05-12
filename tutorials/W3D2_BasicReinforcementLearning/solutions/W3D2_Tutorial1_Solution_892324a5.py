@@ -35,12 +35,9 @@ class DQN(acme.Actor):
     q_values = self._q_network(torch.tensor(observation).unsqueeze(0))  # Adds batch dimension.
     q_values = q_values.squeeze(0)   # Removes batch dimension
 
-    # Select epsilon-greedy action.
-    if self._epsilon < torch.rand(1):
-      action = q_values.argmax(axis=-1)
-    else:
-      action = torch.randint(low=0, high=self._num_actions , size=(1,), dtype=torch.int64)
-    return action
+    return (q_values.argmax(
+        axis=-1) if self._epsilon < torch.rand(1) else torch.randint(
+            low=0, high=self._num_actions, size=(1, ), dtype=torch.int64))
 
   def q_values(self, observation):
     q_values = self._q_network(torch.tensor(observation).unsqueeze(0))

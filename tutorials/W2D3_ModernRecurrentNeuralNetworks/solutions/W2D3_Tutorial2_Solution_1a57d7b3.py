@@ -14,9 +14,7 @@ class VanillaRNN(nn.Module):
     output, h_n = self.rnn(input, h_0)
     h_n = h_n.permute(1, 0, 2)
     h_n = h_n.contiguous().view(h_n.size()[0], h_n.size()[1]*h_n.size()[2])
-    logits = self.fc(h_n)
-
-    return logits
+    return self.fc(h_n)
 
 
 # Uncomment to test VanillaRNN class

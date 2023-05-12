@@ -15,7 +15,7 @@ class PolicyNetwork(NeuralNet):
 
     for examples in games:
       for epoch in range(args.epochs):
-        print('EPOCH ::: ' + str(epoch + 1))
+        print(f'EPOCH ::: {str(epoch + 1)}')
         self.nnet.train()
         pi_losses = []
 
@@ -69,7 +69,7 @@ class PolicyNetwork(NeuralNet):
   def save_checkpoint(self, folder='checkpoint', filename='checkpoint.pth.tar'):
     filepath = os.path.join(folder, filename)
     if not os.path.exists(folder):
-      print("Checkpoint Directory does not exist! Making directory {}".format(folder))
+      print(f"Checkpoint Directory does not exist! Making directory {folder}")
       os.mkdir(folder)
     else:
       print("Checkpoint Directory exists! ")
@@ -80,7 +80,7 @@ class PolicyNetwork(NeuralNet):
     # https://github.com/pytorch/examples/blob/master/imagenet/main.py#L98
     filepath = os.path.join(folder, filename)
     if not os.path.exists(filepath):
-      raise ("No model in path {}".format(filepath))
+      raise f"No model in path {filepath}"
     map_location = None if args.cuda else 'cpu'
     checkpoint = torch.load(filepath, map_location=map_location)
     self.nnet.load_state_dict(checkpoint['state_dict'])

@@ -7,12 +7,10 @@ class LinearAutoEncoder(nn.Module):
     self.dec_lin = nn.Linear(K, my_dataset_dim)
 
   def encode(self, x):
-    h = self.enc_lin(x)
-    return h
+    return self.enc_lin(x)
 
   def decode(self, h):
-    x_prime = self.dec_lin(h)
-    return x_prime
+    return self.dec_lin(h)
 
   def forward(self, x):
     flat_x = x.view(x.size()[0], -1)
@@ -32,7 +30,7 @@ def train_autoencoder(autoencoder, dataset, epochs=20, batch_size=250):
                       generator=g)
   mse_loss = torch.zeros(epochs * len(dataset) // batch_size, device=DEVICE)
   i = 0
-  for epoch in trange(epochs, desc='Epoch'):
+  for _ in trange(epochs, desc='Epoch'):
     for im_batch, _ in loader:
       im_batch = im_batch.to(DEVICE)
       optim.zero_grad()

@@ -18,10 +18,7 @@ def ratio_disc(disc, x_real, x_fake):
   # Compute q / (p + q)
   q_over_pplusq = 1 - p_over_pplusq
 
-  # Compute p / q
-  p_over_q = p_over_pplusq / q_over_pplusq
-
-  return p_over_q
+  return p_over_pplusq / q_over_pplusq
 
 
 disc = OptimalDisc()

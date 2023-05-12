@@ -18,14 +18,8 @@ class PolicyBasedPlayer():
       vap = vap + valids
       vap /= np.sum(vap)
 
-    if self.greedy:
-      # greedy policy player
-      a = np.where(vap == np.max(vap))[0][0]
-    else:
-      # sample-based policy player
-      a = np.random.choice(self.game.getActionSize(), p=vap)
-
-    return a
+    return (np.where(vap == np.max(vap))[0][0] if self.greedy else
+            np.random.choice(self.game.getActionSize(), p=vap))
 
 
 # playing games

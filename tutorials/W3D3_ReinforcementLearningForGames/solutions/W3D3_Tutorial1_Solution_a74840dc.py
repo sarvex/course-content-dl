@@ -14,7 +14,7 @@ class ValueNetwork(NeuralNet):
     optimizer = optim.Adam(self.nnet.parameters())
     for examples in games:
       for epoch in range(args.epochs):
-        print('EPOCH ::: ' + str(epoch + 1))
+        print(f'EPOCH ::: {str(epoch + 1)}')
         self.nnet.train()
         v_losses = []   # to store the losses per epoch
         batch_count = int(len(examples) / args.batch_size)  # len(examples)=200, batch-size=64, batch_count=3
@@ -67,7 +67,7 @@ class ValueNetwork(NeuralNet):
   def save_checkpoint(self, folder='checkpoint', filename='checkpoint.pth.tar'):
     filepath = os.path.join(folder, filename)
     if not os.path.exists(folder):
-      print("Checkpoint Directory does not exist! Making directory {}".format(folder))
+      print(f"Checkpoint Directory does not exist! Making directory {folder}")
       os.mkdir(folder)
     else:
       print("Checkpoint Directory exists! ")
@@ -78,7 +78,7 @@ class ValueNetwork(NeuralNet):
     # https://github.com/pytorch/examples/blob/master/imagenet/main.py#L98
     filepath = os.path.join(folder, filename)
     if not os.path.exists(filepath):
-      raise ("No model in path {}".format(filepath))
+      raise f"No model in path {filepath}"
     map_location = None if args.cuda else 'cpu'
     checkpoint = torch.load(filepath, map_location=map_location)
     self.nnet.load_state_dict(checkpoint['state_dict'])

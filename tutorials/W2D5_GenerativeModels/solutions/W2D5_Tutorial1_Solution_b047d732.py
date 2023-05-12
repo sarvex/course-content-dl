@@ -38,8 +38,7 @@ class ConvAutoEncoder(nn.Module):
     s = F.relu(self.enc_conv_1(s))
     s = F.relu(self.enc_conv_2(s))
     s = self.enc_flatten(s)
-    h = self.enc_lin(s)
-    return h
+    return self.enc_lin(s)
 
   def decode(self, h):
     # Your code here: decode batch of h vectors (don't forget ReLUs!)
@@ -47,8 +46,7 @@ class ConvAutoEncoder(nn.Module):
     s = self.dec_unflatten(s)
     s = F.relu(self.dec_deconv_1(s))
     s = self.dec_deconv_2(s)
-    x_prime = self.dec_bias(s)
-    return x_prime
+    return self.dec_bias(s)
 
   def forward(self, x):
     return self.decode(self.encode(x))

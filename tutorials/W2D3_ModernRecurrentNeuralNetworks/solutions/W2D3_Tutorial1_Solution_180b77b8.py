@@ -28,9 +28,7 @@ class NeuralNet(nn.Module):
     x = F.relu(x)
     # Another fully-connected layer
     x = self.fc2(x)
-    output = F.log_softmax(x, dim=1)
-
-    return output
+    return F.log_softmax(x, dim=1)
 
 
 # Uncomment to check your code

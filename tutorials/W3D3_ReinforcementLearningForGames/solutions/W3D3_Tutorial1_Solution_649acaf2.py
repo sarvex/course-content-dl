@@ -18,8 +18,7 @@ class MonteCarlo():
     temp_v = 0
     isfirstAction = None
 
-    for i in range(self.args.maxDepth): # maxDepth
-
+    for _ in range(self.args.maxDepth):
       if s not in self.Es:
         self.Es[s] = self.game.getGameEnded(canonicalBoard, 1)
       if self.Es[s] != 0:

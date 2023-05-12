@@ -39,7 +39,7 @@ class MonteCarloBasedPlayer():
       values = []
 
       # do some rollouts
-      for rollout in range(self.args.numMCsims):
+      for _ in range(self.args.numMCsims):
         value = self.mc.simulate(canonicalBoard)
         values.append(value)
 
@@ -49,17 +49,15 @@ class MonteCarloBasedPlayer():
 
     self.qsa.sort(key=lambda a: a[0])
     self.qsa.reverse()
-    best_action = self.qsa[0][1]
-    return best_action
+    return self.qsa[0][1]
 
   def getActionProb(self, canonicalBoard, temp=1):
     if self.game.getGameEnded(canonicalBoard, 1) != 0:
       return np.zeros((self.game.getActionSize()))
 
-    else:
-      action_probs = np.zeros((self.game.getActionSize()))
-      best_action = self.play(canonicalBoard)
-      action_probs[best_action] = 1
+    action_probs = np.zeros((self.game.getActionSize()))
+    best_action = self.play(canonicalBoard)
+    action_probs[best_action] = 1
 
     return action_probs
 
@@ -76,4 +74,6 @@ mc1 = MonteCarloBasedPlayer(game, n1, args1)
 n1p = lambda x: np.argmax(mc1.getActionProb(x))
 arena = Arena.Arena(n1p, rp, game, display=OthelloGame.display)
 MC_result = arena.playGames(num_games, verbose=False)
-print("\n Number of games won by player1 = {}, num of games won by player2 = {}, num of games won by nobody = {} out of {} games" .format(MC_result[0], MC_result[1], MC_result[2], num_games))
+print(
+    f"\n Number of games won by player1 = {MC_result[0]}, num of games won by player2 = {MC_result[1]}, num of games won by nobody = {MC_result[2]} out of {num_games} games"
+)

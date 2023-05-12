@@ -6,7 +6,7 @@ class MonteCarloTreeSearchBasedPlayer():
     self.mcts = MCTS(game, nnet, args)
 
   def play(self, canonicalBoard, temp=1):
-    for i in range(self.args.numMCTSSims):
+    for _ in range(self.args.numMCTSSims):
       self.mcts.search(canonicalBoard)
 
     s = self.game.stringRepresentation(canonicalBoard)
@@ -43,4 +43,6 @@ mcts1 = MonteCarloTreeSearchBasedPlayer(game, n1, args1)
 n1p = lambda x: np.argmax(mcts1.getActionProb(x, temp=0))
 arena = Arena.Arena(n1p, rp, game, display=OthelloGame.display)
 MCTS_result = arena.playGames(num_games, verbose=False)
-print("\n Number of games won by player1 = {}, num of games won by player2 = {}, num of games won by nobody = {} out of {} games" .format(MCTS_result[0], MCTS_result[1], MCTS_result[2], num_games))
+print(
+    f"\n Number of games won by player1 = {MCTS_result[0]}, num of games won by player2 = {MCTS_result[1]}, num of games won by nobody = {MCTS_result[2]} out of {num_games} games"
+)

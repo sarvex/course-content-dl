@@ -17,10 +17,7 @@ class Transformer(nn.Module):
     self.token_embedding = nn.Embedding(num_tokens, k)
     self.pos_enc = PositionalEncoding(k)
 
-    transformer_blocks = []
-    for i in range(depth):
-      transformer_blocks.append(TransformerBlock(k=k, heads=heads))
-
+    transformer_blocks = [TransformerBlock(k=k, heads=heads) for _ in range(depth)]
     self.transformer_blocks = nn.Sequential(*transformer_blocks)
     self.classification_head = nn.Linear(k, num_classes)
 
@@ -39,5 +36,4 @@ class Transformer(nn.Module):
 
     sequence_avg = x.mean(dim=1)
     x = self.classification_head(sequence_avg)
-    logprobs = F.log_softmax(x, dim=1)
-    return logprobs
+    return F.log_softmax(x, dim=1)

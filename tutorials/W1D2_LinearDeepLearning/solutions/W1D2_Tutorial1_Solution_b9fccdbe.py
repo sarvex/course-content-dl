@@ -25,8 +25,7 @@ class SimpleGraph:
       torch.Tensor: model predictions
     """
     assert isinstance(x, torch.Tensor)
-    prediction = torch.tanh(x * self.w + self.b)
-    return prediction
+    return torch.tanh(x * self.w + self.b)
 
 
 def sq_loss(y_true, y_prediction):
@@ -41,21 +40,20 @@ def sq_loss(y_true, y_prediction):
   """
   assert isinstance(y_true, torch.Tensor)
   assert isinstance(y_prediction, torch.Tensor)
-  loss = (y_true - y_prediction)**2
-  return loss
+  return (y_true - y_prediction)**2
 
 
 feature = torch.tensor([1])  # input tensor
 target = torch.tensor([7])  # target tensor
 
 simple_graph = SimpleGraph(-0.5, 0.5)
-print("initial weight = {} \ninitial bias = {}".format(simple_graph.w.item(),
-                                                        simple_graph.b.item()))
+print(
+    f"initial weight = {simple_graph.w.item()} \ninitial bias = {simple_graph.b.item()}"
+)
 
 prediction = simple_graph.forward(feature)
 square_loss = sq_loss(target, prediction)
 
-print("for x={} and y={}, prediction={} and L2 Loss = {}".format(feature.item(),
-                                                                 target.item(),
-                                                                 prediction.item(),
-                                                                 square_loss.item()))
+print(
+    f"for x={feature.item()} and y={target.item()}, prediction={prediction.item()} and L2 Loss = {square_loss.item()}"
+)

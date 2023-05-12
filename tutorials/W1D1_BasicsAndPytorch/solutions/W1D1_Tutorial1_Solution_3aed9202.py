@@ -1,8 +1,6 @@
 def functionA(A: torch.Tensor, B: torch.Tensor) -> torch.Tensor:
 
-  # TODO multiplication the sum of the tensors
-  output = A.sum(axis=0) * B.sum()
-  return output
+  return A.sum(axis=0) * B.sum()
 
 
 def functionB(C: torch.Tensor) -> torch.Tensor:
@@ -25,15 +23,13 @@ def functionC(D: torch.Tensor, E: torch.Tensor) -> torch.Tensor:
     # TODO reshape E into the shape of D
     E = E.reshape(D.shape)
     # TODO sum the two tensors
-    output = D + E
+    return D + E
   else:
     # TODO flatten both tensors
     D = D.reshape(1, -1)
     E = E.reshape(1, -1)
     # TODO concatenate the two tensors in the correct dimension
-    output = torch.cat([D, E], axis=1)
-
-  return output
+    return torch.cat([D, E], axis=1)
 
 
 ## Implement the functions above and then uncomment the following lines to test your code

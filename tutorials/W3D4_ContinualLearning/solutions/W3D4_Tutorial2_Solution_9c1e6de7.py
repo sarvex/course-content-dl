@@ -12,24 +12,20 @@ class Multi_task_model(nn.Module):
 
     self.num_tasks = num_tasks
 
-    for i in range(self.num_tasks):
-      self.fcs.append(nn.Sequential(
-          nn.Linear(512, 128),
-          nn.ReLU(),
-          nn.Dropout(0.4),
-          nn.Linear(128, num_labels_per_task[i]),
-          ################################
-          # Add more layers if you want! #
-          ################################
-          nn.Softmax(dim=1),
-      ))
-
+    self.fcs.extend(
+        nn.Sequential(
+            nn.Linear(512, 128),
+            nn.ReLU(),
+            nn.Dropout(0.4),
+            nn.Linear(128, num_labels_per_task[i]),
+            ################################
+            # Add more layers if you want! #
+            ################################
+            nn.Softmax(dim=1),
+        ) for i in range(self.num_tasks))
     self.fcs_temp = nn.Sequential(*self.fcs)
 
   def forward(self, x):
     x = self.backbone(x)
     x = torch.flatten(x, 1)
-    outs = []
-    for i in range(self.num_tasks):
-      outs.append(self.fcs[i](x))
-    return outs
+    return [self.fcs[i](x) for i in range(self.num_tasks)]

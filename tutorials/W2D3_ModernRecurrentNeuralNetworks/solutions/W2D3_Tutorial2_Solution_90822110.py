@@ -29,9 +29,8 @@ class AttentionModel(torch.nn.Module):
     hidden = final_state.squeeze(0)
     attn_weights = torch.bmm(lstm_output, hidden.unsqueeze(2)).squeeze(2)  # expected shape: (batch_size, num_seq)
     soft_attn_weights = F.softmax(attn_weights, 1)
-    new_hidden_state = torch.bmm(lstm_output.transpose(1, 2), soft_attn_weights.unsqueeze(2)).squeeze(2)
-
-    return new_hidden_state
+    return torch.bmm(lstm_output.transpose(1, 2),
+                     soft_attn_weights.unsqueeze(2)).squeeze(2)
 
   def forward(self, input_sentences):
 
@@ -44,9 +43,7 @@ class AttentionModel(torch.nn.Module):
     output, (final_hidden_state, final_cell_state) = self.lstm(input, (h_0, c_0))
     attn_output = self.attention_net(output, final_hidden_state)
     final_output = torch.cat((attn_output, final_hidden_state[0]), 1)
-    logits = self.fc1(final_output)
-
-    return logits
+    return self.fc1(final_output)
 
 
 # Uncomment to check AttentionModel class

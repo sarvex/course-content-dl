@@ -1,10 +1,10 @@
 def visualize_data(dataloader):
 
+  # Choose the datapoint you would like to visualize
+  index = 22
+
   for idx, (data,label) in enumerate(dataloader):
     plt.figure(idx)
-    # Choose the datapoint you would like to visualize
-    index = 22
-
     # choose that datapoint using index and permute the dimensions
     # and bring the pixel values between [0,1]
     data = data[index].permute(1, 2, 0) * \

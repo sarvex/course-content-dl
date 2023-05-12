@@ -9,9 +9,7 @@ def generate_images(autoencoder, K, n_images=1):
   with torch.no_grad():
     # sample z, pass through autoencoder.decode(), and reshape output.
     z = torch.randn(n_images, K)
-    x = autoencoder.decode(z).reshape(output_shape)
-
-    return x
+    return autoencoder.decode(z).reshape(output_shape)
 
 
 K = 20

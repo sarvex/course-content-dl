@@ -54,9 +54,7 @@ def custom_simclr_contrastive_loss(proj_feat1, proj_feat2, temperature=0.5,
   if (denominator < 1e-8).any(): # clamp to avoid division by 0
     denominator = torch.clamp(denominator, 1e-8)
 
-  loss = torch.mean(-torch.log(numerator / denominator))
-
-  return loss
+  return torch.mean(-torch.log(numerator / denominator))
 
 
 ## Uncomment below to test your function

@@ -16,7 +16,7 @@ def custom_torch_RSM_fct(features):
   rsm = torch.nn.functional.cosine_similarity(features.unsqueeze(1),
                                               features.unsqueeze(0), dim=2)
 
-  if not rsm.shape == (len(features), len(features)):
+  if rsm.shape != (len(features), len(features)):
     raise ValueError(
         f"RSM should be of shape ({len(features)}, {len(features)})"
         )
